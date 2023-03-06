@@ -2,48 +2,22 @@ import Video from "./Video";
 import Article from "./Article";
 import New from "./New";
 import Popular from "./Popular";
+import CheckView from "./CheckView";
 
 export default function List(props) {
   return props.list.map(item => {
+      let WithCheck;
       switch (item.type) {
           case 'video':
-            if (item.views >= 1000) {
+              WithCheck = CheckView(Video, New, Popular);
               return (
-                <Popular>
-                  <Video {...item} />
-                </Popular>
+                  <WithCheck {...item} />
               );
-            } else if (item.views < 100) {
-              return (
-                <New>
-                  <Video {...item} />
-                </New>
-              );
-            } else {
-              return (
-                <Video {...item} />
-              )
-            }
-              
-
           case 'article':
-            if (item.views >= 1000) {
+              WithCheck = CheckView(Article, New, Popular);
               return (
-                <Popular>
-                  <Article {...item} />
-                </Popular>
+                  <WithCheck {...item} />
               );
-            } else if (item.views < 100) {
-              return (
-                <New>
-                  <Article {...item} />
-                </New>
-              );
-            } else {
-              return (
-                <Article {...item} />
-              )
-            }
       }
   });
 };
